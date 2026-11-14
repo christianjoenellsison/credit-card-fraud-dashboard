@@ -5,11 +5,11 @@ This is the first milestone of Group SAS’s ISRM research prototype. The single
 ## Run locally
 
 ```sh
-python -m http.server 8000 --bind 127.0.0.1 --directory site
+python -m http.server 8000 --bind 127.0.0.1
 ```
 
 Open [localhost:8000](http://localhost:8000/). The site consists of HTML and CSS.
 
 ## GitHub Pages
 
-In the repository’s [Pages settings](https://github.com/christianjoenellsison/credit-card-fraud-dashboard/settings/pages), set **Source** to **GitHub Actions**. Then run **Check and deploy dashboard** from the [Actions tab](https://github.com/christianjoenellsison/credit-card-fraud-dashboard/actions) with `main` selected. Subsequent pushes to `main` deploy the updated site while Pages is enabled.
+The site is published from the root of `main` with **Deploy from a branch** selected in the repository’s [Pages settings](https://github.com/christianjoenellsison/credit-card-fraud-dashboard/settings/pages). Pushes to `main` deploy the two static site files. The **Check dashboard** workflow verifies that both files are present.
