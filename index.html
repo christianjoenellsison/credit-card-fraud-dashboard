@@ -4,48 +4,75 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Preview simulated credit card fraud triage with six synthetic transactions.">
-  <meta name="theme-color" content="#102923">
+  <meta name="theme-color" content="#f4f6f9">
   <title>Credit Card Fraud Dashboard</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="./style.css">
 </head>
 <body>
   <header class="site-header">
-    <div class="wrap header-content">
-      <span class="brand">Fraud Triage</span>
-      <span class="group">Group SAS · ISRN</span>
+    <div class="wrap masthead">
+      <div class="brand"><span class="brand-mark" aria-hidden="true"></span>Fraud Triage</div>
+      <div class="project"><span>Group SAS</span><span>ISRN</span></div>
     </div>
   </header>
 
   <main class="wrap">
     <header class="intro">
-      <span class="mode">Synthetic demo</span>
-      <h1>Credit Card Fraud Dashboard</h1>
-      <p>Preview how transactions are routed by calibrated fraud risk scores.</p>
+      <h1>Credit card fraud dashboard</h1>
+      <p>Compare calibrated risk scores and triage decisions across six sample transactions.</p>
     </header>
 
-    <section class="panel" aria-labelledby="transactions-title">
-      <header class="panel-heading">
-        <h2 id="transactions-title">Sample triage results</h2>
-        <p>Six selected synthetic transactions, ordered by risk score.</p>
+    <section class="ledger" aria-labelledby="transactions-title">
+      <header class="ledger-heading">
+        <h2 id="transactions-title">Transaction review</h2>
+        <p class="data-label">Synthetic data</p>
       </header>
 
       <table aria-labelledby="transactions-title">
         <thead>
-          <tr><th scope="col">Transaction</th><th scope="col">Risk score</th><th scope="col">Triage action</th></tr>
+          <tr>
+            <th scope="col">Transaction ID</th>
+            <th scope="col" class="score" aria-sort="descending">Risk score</th>
+            <th scope="col">Triage decision</th>
+          </tr>
         </thead>
         <tbody>
-          <tr><th scope="row">TX-00407</th><td>92.13%</td><td><span class="pill block">Block (simulated)</span></td></tr>
-          <tr><th scope="row">TX-03911</th><td>92.07%</td><td><span class="pill block">Block (simulated)</span></td></tr>
-          <tr><th scope="row">TX-04336</th><td>61.72%</td><td><span class="pill review">Escalate for review</span></td></tr>
-          <tr><th scope="row">TX-05699</th><td>61.34%</td><td><span class="pill review">Escalate for review</span></td></tr>
-          <tr><th scope="row">TX-05736</th><td>1.33%</td><td><span class="pill allow">Allow</span></td></tr>
-          <tr><th scope="row">TX-02799</th><td>1.33%</td><td><span class="pill allow">Allow</span></td></tr>
+          <tr>
+            <th scope="row">TX-00407</th>
+            <td class="score"><meter max="100" value="92.13" aria-hidden="true"></meter><span class="score-value">92.13%</span></td>
+            <td><span class="decision block">Block</span></td>
+          </tr>
+          <tr>
+            <th scope="row">TX-03911</th>
+            <td class="score"><meter max="100" value="92.07" aria-hidden="true"></meter><span class="score-value">92.07%</span></td>
+            <td><span class="decision block">Block</span></td>
+          </tr>
+          <tr>
+            <th scope="row">TX-04336</th>
+            <td class="score"><meter max="100" value="61.72" aria-hidden="true"></meter><span class="score-value">61.72%</span></td>
+            <td><span class="decision review">Escalate for review</span></td>
+          </tr>
+          <tr>
+            <th scope="row">TX-05699</th>
+            <td class="score"><meter max="100" value="61.34" aria-hidden="true"></meter><span class="score-value">61.34%</span></td>
+            <td><span class="decision review">Escalate for review</span></td>
+          </tr>
+          <tr>
+            <th scope="row">TX-05736</th>
+            <td class="score"><meter max="100" value="1.33" aria-hidden="true"></meter><span class="score-value">1.33%</span></td>
+            <td><span class="decision allow">Allow</span></td>
+          </tr>
+          <tr>
+            <th scope="row">TX-02799</th>
+            <td class="score"><meter max="100" value="1.33" aria-hidden="true"></meter><span class="score-value">1.33%</span></td>
+            <td><span class="decision allow">Allow</span></td>
+          </tr>
         </tbody>
       </table>
     </section>
 
-    <footer>ISRN research prototype. All triage actions are simulated.</footer>
+    <footer class="site-footer">ISRN research prototype. All triage decisions are simulated.</footer>
   </main>
 </body>
 </html>
