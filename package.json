@@ -1,0 +1,11 @@
+{
+  "name": "credit-card-fraud-dashboard",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node --check site/app.js && node --test"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
