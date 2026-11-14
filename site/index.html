@@ -3,98 +3,49 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Explore calibrated credit card fraud alerts and TreeSHAP explanations from a synthetic research experiment.">
+  <meta name="description" content="Preview simulated credit card fraud triage with six synthetic transactions.">
   <meta name="theme-color" content="#102923">
-  <title>Fraud Triage | Credit Card Fraud Dashboard</title>
+  <title>Credit Card Fraud Dashboard</title>
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="./style.css">
-  <script type="module" src="./app.js"></script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Skip to dashboard</a>
-  <aside class="sidebar" aria-label="Dashboard navigation">
-    <a class="brand" href="#overview">
-      <span class="brand-mark" aria-hidden="true">↗</span>
-      <span>Fraud Triage<small>Group SAS · ISRM</small></span>
-    </a>
-    <nav aria-label="Sections">
-      <a class="nav-link active" href="#overview" aria-current="location"><span aria-hidden="true">◫</span> Overview</a>
-      <a class="nav-link" href="#alert-queue"><span aria-hidden="true">≡</span> Alert queue</a>
-      <a class="nav-link" href="#model-evaluation"><span aria-hidden="true">▥</span> Model evaluation</a>
-    </nav>
-    <a class="repo-link" href="https://github.com/christianjoenellsison/credit-card-fraud-dashboard">View source <span aria-hidden="true">↗</span></a>
-  </aside>
+  <header class="site-header">
+    <div class="wrap header-content">
+      <span class="brand">Fraud Triage</span>
+      <span class="group">Group SAS · ISRM</span>
+    </div>
+  </header>
 
-  <main id="main" class="main" tabindex="-1">
-    <header id="overview" class="intro">
-      <div class="intro-heading">
-        <h1>Credit Card Fraud Dashboard</h1>
-        <span class="mode"><span aria-hidden="true"></span> Synthetic demo</span>
-      </div>
-      <p>Explore calibrated fraud scores, simulated triage decisions, and the features that drive them.</p>
+  <main class="wrap">
+    <header class="intro">
+      <span class="mode">Synthetic demo</span>
+      <h1>Credit Card Fraud Dashboard</h1>
+      <p>Preview how transactions are routed by calibrated fraud risk scores.</p>
     </header>
 
-    <p id="load-status" role="status">Loading the synthetic experiment…</p>
-    <div id="dashboard" hidden>
-      <section class="metric-grid" aria-label="Held-out test results">
-        <article class="metric"><h2>Transactions scored</h2><strong id="metric-transactions"></strong><span>Held-out synthetic test set</span></article>
-        <article class="metric"><h2>Fraud recall</h2><strong id="metric-recall"></strong><span id="metric-recall-note"></span></article>
-        <article class="metric"><h2>Alert precision</h2><strong id="metric-precision"></strong><span>Review and block combined</span></article>
-        <article class="metric"><h2>False-positive rate</h2><strong id="metric-fpr"></strong><span>Legitimate cases flagged</span></article>
-      </section>
+    <section class="panel" aria-labelledby="transactions-title">
+      <header class="panel-heading">
+        <h2 id="transactions-title">Sample triage results</h2>
+        <p>Six selected synthetic transactions, ordered by risk score.</p>
+      </header>
 
-      <div class="overview-grid">
-        <section class="panel distribution">
-          <header class="panel-heading"><h2>Triage distribution</h2><p>How the test set was routed by calibrated risk score.</p></header>
-          <div id="action-chart" class="action-chart"></div>
-        </section>
-        <section class="panel thresholds">
-          <header class="panel-heading"><h2>Decision thresholds</h2><p>Selected on the tuning set, then applied to the held-out test set.</p></header>
-          <dl id="threshold-list" class="threshold-list"></dl>
-        </section>
-      </div>
+      <table aria-labelledby="transactions-title">
+        <thead>
+          <tr><th scope="col">Transaction</th><th scope="col">Risk score</th><th scope="col">Triage action</th></tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row">TX-00407</th><td>92.13%</td><td><span class="pill block">Block (simulated)</span></td></tr>
+          <tr><th scope="row">TX-03911</th><td>92.07%</td><td><span class="pill block">Block (simulated)</span></td></tr>
+          <tr><th scope="row">TX-04336</th><td>61.72%</td><td><span class="pill review">Escalate for review</span></td></tr>
+          <tr><th scope="row">TX-05699</th><td>61.34%</td><td><span class="pill review">Escalate for review</span></td></tr>
+          <tr><th scope="row">TX-05736</th><td>1.33%</td><td><span class="pill allow">Allow</span></td></tr>
+          <tr><th scope="row">TX-02799</th><td>1.33%</td><td><span class="pill allow">Allow</span></td></tr>
+        </tbody>
+      </table>
+    </section>
 
-      <section id="alert-queue" class="panel queue">
-        <header class="panel-heading"><h2>Alert queue</h2><p>Open a transaction to see its strongest TreeSHAP contributions.</p></header>
-        <div class="filters">
-          <label>Search transaction<input id="search" type="search" placeholder="e.g. TX-00001" autocomplete="off"></label>
-          <label>Triage action<select id="action-filter"><option value="all">All actions</option><option value="review">Escalate for review</option><option value="block">Block (simulated)</option><option value="allow">Allow</option></select></label>
-        </div>
-        <div class="table-scroll" tabindex="0" role="region" aria-label="Transaction results">
-          <table>
-            <thead><tr><th scope="col">Transaction</th><th scope="col" aria-sort="descending">Risk score</th><th scope="col">Triage action</th><th scope="col">Test label</th></tr></thead>
-            <tbody id="case-rows"></tbody>
-          </table>
-        </div>
-        <footer class="table-footer">
-          <span id="table-count" aria-live="polite"></span>
-          <div class="pagination"><button id="previous" type="button">Previous</button><button id="next" type="button">Next</button></div>
-        </footer>
-      </section>
-
-      <section id="model-evaluation" class="panel evaluation">
-        <header class="panel-heading"><h2>Model evaluation</h2><p>Performance on the synthetic test set. Higher average precision and lower Brier scores indicate better results.</p></header>
-        <div class="table-scroll" tabindex="0" role="region" aria-label="Model comparison">
-          <table><thead><tr><th scope="col">Model</th><th scope="col">Average precision</th><th scope="col">Brier score</th></tr></thead><tbody id="model-rows"></tbody></table>
-        </div>
-        <h3>Global feature importance</h3>
-        <p id="importance-note" class="subtle"></p>
-        <div class="table-scroll" tabindex="0" role="region" aria-label="Global TreeSHAP importance">
-          <table><thead><tr><th scope="col">Feature</th><th scope="col">Baseline XGBoost</th><th scope="col">Cost-sensitive XGBoost</th></tr></thead><tbody id="importance-rows"></tbody></table>
-        </div>
-      </section>
-
-      <footer class="page-footer">Group SAS · ISRM research prototype. All transaction data and triage actions are simulated.</footer>
-    </div>
+    <footer>ISRM research prototype. All triage actions are simulated.</footer>
   </main>
-
-  <dialog id="case-dialog" aria-labelledby="case-title">
-    <form method="dialog" class="dialog-close"><button type="submit" aria-label="Close transaction details">×</button></form>
-    <h2 id="case-title"></h2>
-    <dl id="case-summary" class="case-summary"></dl>
-    <h3>Top TreeSHAP contributions</h3>
-    <p class="subtle">Positive values increase the model’s raw log-odds of fraud. Negative values decrease them. V1–V28 are anonymized features.</p>
-    <table><thead><tr><th scope="col">Feature</th><th scope="col">Contribution</th></tr></thead><tbody id="driver-rows"></tbody></table>
-  </dialog>
 </body>
 </html>
