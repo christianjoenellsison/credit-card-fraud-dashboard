@@ -1,6 +1,6 @@
 # Credit Card Fraud Dashboard
 
-This is the first milestone of Group SAS’s ISRM research prototype. The single read-only page shows six synthetic transactions with calibrated risk scores and simulated Allow, Escalate for review, and Block decisions. The examples come from the earlier synthetic experiment and illustrate the three possible actions.
+This is the first milestone of Group SAS’s ISRN research prototype. The single read-only page shows six synthetic transactions with calibrated risk scores and simulated Allow, Escalate for review, and Block decisions. The examples come from the earlier synthetic experiment and illustrate the three possible actions.
 
 ## Run locally
 
